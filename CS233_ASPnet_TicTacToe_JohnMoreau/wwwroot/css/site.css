@@ -1,3 +1,5 @@
+
+
 html {
   font-size: 14px;
 }
@@ -18,10 +20,59 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+.dark {
+    background: #212121;
+}
+
+
+
+/* Not sure why my bootstrap footer wasn't working. Made my own. - John*/
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .img-footer {
     height: 25px;
     width: auto;
+}
+
+.container-small {
+    width: 50%;
+    margin: 1rem auto 1rem auto;
+}
+
+/* Grid button */
+.button-square {
+    width: 7rem;
+    height: 7rem;
+    background: none;
+    border-radius: 5px;
+    color: dimgrey;
+    font-weight: 1000;
+    font-size: 1.2rem;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    padding-bottom: 2rem;
+}
+
+.button-square:hover {
+    border: 2px solid green;
+}
+
+/*Custom Canvas tag from https://stackoverflow.com/questions/29911143/how-can-i-animate-the-drawing-of-text-on-a-web-page*/
+canvas {
+    width: 100%;
+}
+
+
+
+
+.custom-flex-row {
+    display: flex;
+    color: #258cfb
 }
