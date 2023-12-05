@@ -55,8 +55,8 @@ footer {
     color: dimgrey;
     font-weight: 1000;
     font-size: 1.2rem;
-    margin-left: 0.2rem;
-    margin-right: 0.2rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
     padding-bottom: 2rem;
 }
 
@@ -74,5 +74,30 @@ canvas {
 
 .custom-flex-row {
     display: flex;
-    color: #258cfb
+    color: #258cfb;
+    flex-wrap: wrap;
+    width: 425px;
+    min-width: 425px;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.custom-flex-row-og {
+    display: flex;
+    color: #258cfb;
+}
+
+@media (max-width: 768px) {
+    .custom-flex-row {
+        width: 325px;
+        min-width: 325px;
+    }
+}
+
+/* Media query for even smaller screens */
+/*@media (max-width: 480px) {
+    .custom-flex-row {
+        width: 300px;
+        min-width: 300px;
+    }
+}*/

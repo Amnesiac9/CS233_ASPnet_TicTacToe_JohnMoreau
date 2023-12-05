@@ -6,9 +6,18 @@ namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(TicTacToe game)
         {
-            return View();
+            // Coalescing null to new game
+            game ??= new TicTacToe();
+
+
+            return View(game);
+        }
+
+        public IActionResult Update(TicTacToe game)
+        {
+            return RedirectToAction("Index", "Home", new {game});
         }
 
         public IActionResult Privacy()
