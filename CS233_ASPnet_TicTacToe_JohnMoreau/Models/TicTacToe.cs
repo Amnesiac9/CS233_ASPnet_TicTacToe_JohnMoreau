@@ -2,7 +2,7 @@
 {
     public class TicTacToe
     {
-        public string CurrentId { get; set; } = string.Empty;
+        public int LastId { get; set; }
         public string CurrentPlayer { get; set; } = "X";
 
         public bool GameOver { get; set; } = false;
@@ -10,8 +10,8 @@
         public string[] Board { get; set; } = InitializeBoard();
 
 
-        public string[] Ids { get; set; } = [
-                "0", "1", "2", "3", "4", "5", "6", "7", "8"
+        public int[] Ids { get; set; } = [
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9
             ];
 
         public static string[] InitializeBoard()

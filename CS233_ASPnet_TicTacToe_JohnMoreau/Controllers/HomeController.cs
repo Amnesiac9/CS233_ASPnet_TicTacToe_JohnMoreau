@@ -15,8 +15,10 @@ namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
             return View(game);
         }
 
-        public IActionResult Update(TicTacToe game)
+        public IActionResult Update(TicTacToe game, string id)
         {
+
+
             return RedirectToAction("Index", "Home", new {game});
         }
 
