@@ -8,9 +8,10 @@
 
 @{
     ViewData["Title"] = "Tic Tac Toe";
-    int GetSpeed(int id) => id == Model.LastId ? 4 : 0;
+    int GetSpeed(int id) => id == Model.LastId ? 4 : 15;
 }
 @model TicTacToe;
+
 
 <div class="container text-center">
     <div class="alert alert-success mt-4">
@@ -18,79 +19,36 @@
     </div>
     <div class="container">
         <div>
-            New Game
+            <a asp-controller="Home" asp-action="Restart" class="">
+                New Game
+            </a>
         </div>
         <div>
             <form asp-action="Update" method="post">
 
                 <input type="hidden" asp-for="CurrentPlayer" />
-                <input type="hidden" asp-for="Board" />
-
+               
                 <div class="custom-flex-row justify-content-center">
-                    @foreach (int id in Model.Ids)
+                    @for (var i = 0; i < Model.Board.Length; ++i)
                     {
+                        <input type="hidden" asp-for="Board[i]" name="@Model.Board[i]" value="@Model.Board[i]" /> @* Add each board position to a hidden field to bind back to the model on submit - Why can't you do a single hidden field for the full array? Grr.' *@
                         <div class="custom-flex-item">
-                            <button type="submit" value="@id.ToString()" onclick="drawLetter('@id', '@Model.CurrentPlayer', GetSpeed(@id), '#306644')" class="button-square">
-                                <canvas id="@id" width="100" height="100">@Model.Board[id]</canvas>
+                            <button type="submit" class="button-square" name="id" value="@i" >
+                                <canvas id="@i" width="100" height="100"></canvas>
                             </button>
                         </div>
                     }
                 </div>
             </form>
         </div>
-        Testing ---
-        <div>
-            <div class="custom-flex-row-og justify-content-center">
-                <div class="">
-                    <button onclick="drawLetter('1-1', 'O', 4, '#306644')" class="button-square">
-                        <canvas id="1-1" width="100" height="100">Hello</canvas>
-                    </button>
-                </div>
-                <div class="">
-                    <button class="button-square">
-                        Hello
-                    </button>
-                </div>
-                <div class="">
-                    <button class="button-square">
-                        Hello
-                    </button>
-                </div>
-            </div>
-            <div class="custom-flex-row justify-content-center">
-                <div class="">
-                    <button class="button-square">
-                        Hello
-                    </button>
-                </div>
-                <div class="">
-                    <button class="button-square">
-                        Hello
-                    </button>
-                </div>
-                <div class="">
-                    <button class="button-square">
-                        Hello
-                    </button>
-                </div>
-            </div>
-            <div class="custom-flex-row justify-content-center">
-                <div class="">
-                    <button class="button-square">
-                        Hello
-                    </button>
-                </div>
-                <div class="">
-                    <button class="button-square">
-                        Hello
-                    </button>
-                </div>
-                <div class="">
-                    <button class="button-square">
-                        Hello
-                    </button>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
+@*Enables the drawing effect*@
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        @for (var i = 0; i < Model.Board.Length; ++i) 
+        {
+            <text>drawLetters('@i', '@Model.Board[i]', '@GetSpeed(i)'); </text>
+        }
+    }, false);
+</script>

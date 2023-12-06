@@ -13,7 +13,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 
 var app = builder.Build();
 
@@ -24,6 +24,9 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+// Enable Session State
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

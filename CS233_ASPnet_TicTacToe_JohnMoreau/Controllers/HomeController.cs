@@ -6,20 +6,36 @@ namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index(TicTacToe game)
+        public IActionResult Index()
         {
+
+
             // Coalescing null to new game
-            game ??= new TicTacToe();
+            var game = HttpContext.Session.GetObject<TicTacToe>("game") ??  new TicTacToe();
 
 
             return View(game);
         }
 
+        [HttpPost]
         public IActionResult Update(TicTacToe game, string id)
         {
 
+            //var session = new TicTacToeSession(HttpContext.Session);
+            // The game isn't picking up all of the fields and seems to be initializing a new game object each time this is called...
 
-            return RedirectToAction("Index", "Home", new {game});
+            game.LastId = int.Parse(id);
+            game.Board[int.Parse(id)] = game.CurrentPlayer;
+            game.SwitchPlayer();
+
+            HttpContext.Session.SetObject("game", game);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Restart()
+        {
+            return RedirectToAction("Index", "Home", new { game = new TicTacToe() });
         }
 
         public IActionResult Privacy()

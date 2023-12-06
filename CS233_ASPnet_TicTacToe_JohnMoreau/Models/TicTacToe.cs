@@ -2,12 +2,22 @@
 {
     public class TicTacToe
     {
-        public int LastId { get; set; }
+        public int LastId { get; set; } = 9;
         public string CurrentPlayer { get; set; } = "X";
 
         public bool GameOver { get; set; } = false;
 
-        public string[] Board { get; set; } = InitializeBoard();
+        public string[] Board { get; set; } = [
+                " ",
+            " ",
+            " ",
+            " ",
+            "O",
+            " ",
+            " ",
+            " ",
+            "X",
+        ];
 
 
         public int[] Ids { get; set; } = [
@@ -18,8 +28,8 @@
         {
             return [
                 " ", " ", " ",
-                " ", " ", " ",
-                " ", " ", " ",
+                " ", "O", " ",
+                " ", " ", "X",
             ];
         }
 
