@@ -35,7 +35,7 @@
                         @* This is causing the board passed to the action to be a brand new board...*@
                         //<input type="hidden" asp-for="Board[i]" name="@Model.Board[i]" value="@Model.Board[i]" /> @* Add each board position to a hidden field to bind back to the model on submit - Why can't you do a single hidden field for the full array? Grr.' *@
                         <div class="custom-flex-item">
-                            <button type="submit" class="button-square" name="id" value="@i" >
+                            <button type="submit" class="button-square" name="LastId" value=@i >
                                 <canvas id="@i" width="100" height="100"></canvas>
                             </button>
                         </div>

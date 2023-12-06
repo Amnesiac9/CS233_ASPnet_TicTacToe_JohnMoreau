@@ -19,7 +19,7 @@ namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update([FromForm] TicTacToe game, string id)
+        public IActionResult Update([FromForm] TicTacToe game)
         {
 
             // Could not get the binding to match to a TicTacToe object game.Board array, it would always be intitialized with a blank board,
@@ -30,11 +30,10 @@ namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
             // This works instead... passing in each field seperately
             //var game = new TicTacToe(board, currentPlayer, int.Parse(id));
 
-            // Or this
+            // Or store the serialized (string) version as a attribute of the class and that can be bound easily
+            // Could probably have made the attribute a List of strings instead...
             game.Board = JsonConvert.DeserializeObject<string[]>(game.BoardString) ?? TicTacToe.InitializeBoard();
-
-            game.LastId = int.Parse(id);
-            game.Board[int.Parse(id)] = game.CurrentPlayer;
+            game.Board[game.LastId] = game.CurrentPlayer;
             game.SwitchPlayer();
 
             HttpContext.Session.SetObject("game", game);

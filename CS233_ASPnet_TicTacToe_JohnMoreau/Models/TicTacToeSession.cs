@@ -1,4 +1,7 @@
-﻿namespace CS233_ASPnet_TicTacToe_JohnMoreau.Models
+﻿
+//Not Needed
+
+namespace CS233_ASPnet_TicTacToe_JohnMoreau.Models
 {
     public class TicTacToeSession
     {
