@@ -1,5 +1,6 @@
 using CS233_ASPnet_TicTacToe_JohnMoreau.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
@@ -18,11 +19,18 @@ namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(TicTacToe game, string id)
+        public IActionResult Update([FromForm] TicTacToe game, string id)
         {
 
-            //var session = new TicTacToeSession(HttpContext.Session);
-            // The game isn't picking up all of the fields and seems to be initializing a new game object each time this is called...
+            // Could not get the binding to match to a TicTacToe object game.Board array, it would always be intitialized with a blank board.
+            // The game isn't picking up all of the fields and seems to be initializing a new board array each time...
+
+
+            // This works instead... 
+            //var game = new TicTacToe(board, currentPlayer, int.Parse(id));
+
+            // Or this
+            game.Board = JsonConvert.DeserializeObject<string[]>(game.BoardString) ?? TicTacToe.InitializeBoard();
 
             game.LastId = int.Parse(id);
             game.Board[int.Parse(id)] = game.CurrentPlayer;

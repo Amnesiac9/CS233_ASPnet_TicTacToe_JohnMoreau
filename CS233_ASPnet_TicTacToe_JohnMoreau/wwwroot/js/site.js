@@ -18,6 +18,10 @@
 
 function drawLetters(id, letter, speed) {
 
+    if (letter == null) {
+        letter == " "
+    }
+
     var ctx = document.getElementById(id).getContext("2d"),
         dashLen = 220, dashOffset = dashLen, //speed = 5,
         txt = letter, x = 30, i = 0;

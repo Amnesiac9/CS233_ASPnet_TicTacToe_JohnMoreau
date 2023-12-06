@@ -4,7 +4,6 @@
     {
         public int LastId { get; set; } = 9;
         public string CurrentPlayer { get; set; } = "X";
-
         public bool GameOver { get; set; } = false;
 
         public string[] Board { get; set; } = [
@@ -19,10 +18,21 @@
             "X",
         ];
 
+        public string BoardString { get; set; } = string.Empty;
 
-        public int[] Ids { get; set; } = [
-                0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-            ];
+        public TicTacToe()
+        {
+
+        }
+
+        public TicTacToe(string[] board, string currentPlayer, int lastId)
+        {
+            Board = board;
+            CurrentPlayer = currentPlayer;
+            LastId = lastId;
+            
+        }
+
 
         public static string[] InitializeBoard()
         {
