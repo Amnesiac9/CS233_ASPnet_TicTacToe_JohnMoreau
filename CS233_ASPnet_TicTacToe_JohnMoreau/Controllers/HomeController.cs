@@ -22,11 +22,12 @@ namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
         public IActionResult Update([FromForm] TicTacToe game, string id)
         {
 
-            // Could not get the binding to match to a TicTacToe object game.Board array, it would always be intitialized with a blank board.
+            // Could not get the binding to match to a TicTacToe object game.Board array, it would always be intitialized with a blank board,
+            // or it would come through as system.string[] if using a single field.
             // The game isn't picking up all of the fields and seems to be initializing a new board array each time...
 
 
-            // This works instead... 
+            // This works instead... passing in each field seperately
             //var game = new TicTacToe(board, currentPlayer, int.Parse(id));
 
             // Or this
