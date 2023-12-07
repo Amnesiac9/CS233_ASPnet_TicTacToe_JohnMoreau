@@ -48,6 +48,13 @@ namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
                 game.SwitchPlayer();
             }
 
+            if(!game.Board.Contains("-"))
+            {
+                game.Tie = true;
+                game.GameOver = true;
+
+            }
+
             // Save our game to the session state
             HttpContext.Session.SetObject("game", game);
 

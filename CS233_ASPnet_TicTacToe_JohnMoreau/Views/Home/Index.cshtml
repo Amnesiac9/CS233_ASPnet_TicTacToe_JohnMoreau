@@ -11,14 +11,15 @@
     int GetSpeed(int id) => id == Model.LastId ? 4 : 15;
     var disabledCheck = Model.GameOver ? "disabled" : "";
     var hiddenCheck = Model.GameOver ? "" : "hidden";
+    var messageTypeCheck = Model.Tie ? "alert-warning" : "alert-success";
 }
 @model TicTacToe;
 
 
 <div class="container text-center">
     <div class="container">
-        <div class="alert alert-success mt-4 @hiddenCheck">
-            @Model.CurrentPlayer Wins!
+        <div class="alert @messageTypeCheck mt-4 @hiddenCheck">
+            @(Model.Tie ? "It's a tie!" : Model.CurrentPlayer + " wins!")
         </div>
         <div class="mb-3">
             <a asp-controller="Home" asp-action="NewGame" class="">
@@ -51,6 +52,7 @@
         <div class="mt-5">
             <h5>Wins</h5>
             <p>@Model.Wins?.ToString()</p>
+            <p><strong>X: </strong>@Model.GetWinCount('X') | <strong>O: </strong>@Model.GetWinCount('O')</p>
         </div>
 
     </div>
