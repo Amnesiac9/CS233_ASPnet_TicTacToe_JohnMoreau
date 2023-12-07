@@ -8,8 +8,9 @@
 // SOURCE: https://stackoverflow.com/questions/29911143/how-can-i-animate-the-drawing-of-text-on-a-web-page
 
 // My Edits:
-// Added function name and parameters (id, letter, speed, color)
+// Added function name and parameters (id, letter, speed)
 // Changed strokeText arguments y axis to 72 to center text
+// Added null or dash check and early return for blank boxes
 
 // Nice red: #821e1e
 // BlueGreen: #30665c
@@ -18,8 +19,9 @@
 
 function drawLetters(id, letter, speed) {
 
-    if (letter == null) {
-        letter == " "
+    if (letter == null || letter == "-") {
+        // Don't draw anything
+        return;
     }
 
     var ctx = document.getElementById(id).getContext("2d"),
