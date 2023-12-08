@@ -73,7 +73,7 @@
             if (CheckPattern(Board, 0, 3, 3, 1, 3)  // Check Rows // Start at 0, increment outer loop by 3 (Check 3 at a time), then iterate inner loop by 1 (Check left to right) inner end would be start + 3, outer end would be board.length
                 || CheckPattern(Board, 0, 1, 3, 3, 3) // Check Columns // Start at 0, increment outer loop by 1 (Check top to bottom) then iterate inner loop by 3 (Checking 3 at a time), inner end would be board.length (9), outer end would be 3.
                 || CheckPattern(Board, 0, 2, 1, 4, 3) // Check left to right cross // Start at 0, outerloop only needs to run once.
-                || CheckPattern(Board, 2, 7, 1, 2, 3)) // Check right to left cross // Start at 0, outerloop only needs to run once.
+                || CheckPattern(Board, 2, 7, 1, 2, 3)) // Check right to left cross // Start at 2, outerloop only needs to run once.
             {
                 GameOver = true;
                 PushWin();
