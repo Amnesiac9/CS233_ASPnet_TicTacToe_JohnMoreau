@@ -2,13 +2,14 @@
 /*
 * John Moreau
 * CSS233
-* 12/5/2023
+* 12/7/2023
 */
 *@
 
 @{
     ViewData["Title"] = "Tic Tac Toe";
-    int GetSpeed(int id) => id == Model.LastId ? 4 : 15;
+    int GetSpeed(int id) => id == Model.LastId ? 4 : 15; // Draws the X or O quickly if it was not the last one clicked
+    string btnDisabledCheck(int i) => Model.GameOver || Model.Board[i] != "-" ? "disabled" : "";
     var disabledCheck = Model.GameOver ? "disabled" : "";
     var hiddenCheck = Model.GameOver ? "" : "hidden";
     var messageTypeCheck = Model.Tie ? "alert-warning" : "alert-success";
@@ -22,15 +23,23 @@
             @(Model.Tie ? "It's a tie!" : Model.CurrentPlayer + " wins!")
         </div>
         <div class="mb-3">
-            <a asp-controller="Home" asp-action="NewGame" class="">
-                New Game
-            </a>
+            @if (Model.GameOver)
+            {
+                <a asp-controller="Home" asp-action="NewGame" class="h3 text-decoration-none">
+                    New Game
+                </a>
+            }
+            else
+            {
+                <h3>@(Model.CurrentPlayer)'s turn</h3>
+            }
+
         </div>
         <div>
             <form asp-action="Update" method="post">
 
                 <input type="hidden" asp-for="CurrentPlayer" />
-                <input type="hidden" asp-for="Wins" />
+                <input type="hidden" asp-for="History" />
 
                 @* This was needed when I couldn't get the array to bind when submitting to the controller.*@
                 @*<input type="hidden" asp-for="BoardString" value='@Json.Serialize(Model.Board)' />*@
@@ -39,9 +48,10 @@
                     @for (var i = 0; i < Model.Board.Length; ++i)
                     {
                         @* This binds properly by using the same name for each instance.*@
-                        <input type="hidden" asp-for="@Model.Board" name="Board" value="@Model.Board[i]" /> @* Add each board position to a hidden field to bind back to the model on submit - Why can't you do a single hidden field for the full array? Grr.' *@
+                        @* Add each board position to a hidden field to bind back to the model on submit - Why can't you do a single hidden field for the full array? Grr.' *@
+                        <input type="hidden" asp-for="@Model.Board" name="Board" value="@Model.Board[i]" /> 
                         <div class="custom-flex-item">
-                            <button type="submit" class="button-square" name="LastId" value=@i @disabledCheck>
+                            <button type="submit" class="button-square" name="LastId" value=@i @btnDisabledCheck(i)>
                                 <canvas id="@i" width="100" height="100"></canvas>
                             </button>
                         </div>
@@ -50,9 +60,14 @@
             </form>
         </div>
         <div class="mt-5">
-            <h5>Wins</h5>
-            <p>@Model.Wins?.ToString()</p>
-            <p><strong>X: </strong>@Model.GetWinCount('X') | <strong>O: </strong>@Model.GetWinCount('O')</p>
+            <h5>Game History</h5>
+            <div class="@(Model.History?.Length <= 0 ? "hidden" : "")">
+                <p>@Model.History</p>
+                <p><strong>X Wins: </strong>@Model.GetWinCount('X') | <strong>O Wins: </strong>@Model.GetWinCount('O') |  <strong>Ties: </strong> @Model.GetWinCount('T')</p>
+                <a asp-controller="Home" asp-action="ClearHistory" class="text-decoration-none">
+                    Clear
+                </a>
+            </div>
         </div>
 
     </div>

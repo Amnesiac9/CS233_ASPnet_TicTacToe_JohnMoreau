@@ -1,4 +1,10 @@
-﻿namespace CS233_ASPnet_TicTacToe_JohnMoreau.Models
+﻿/*
+* John Moreau
+* CSS233
+* 12/7/2023
+*/
+
+namespace CS233_ASPnet_TicTacToe_JohnMoreau.Models
 {
     public class TicTacToe
     {
@@ -7,7 +13,7 @@
         public bool GameOver { get; set; } = false;
 
         public bool Tie { get; set; } = false;
-        public string Wins { get; set; } = "";
+        public string History { get; set; } = "";
 
         public string[] Board { get; set; } = [
             "-",
@@ -36,7 +42,7 @@
 
         public string GetWinCount(char s)
         {
-            return CharCount(Wins, s).ToString();
+            return CharCount(History, s).ToString();
         }
 
 
@@ -45,30 +51,22 @@
             CurrentPlayer = CurrentPlayer == "X" ? "O" : "X";
         }
 
-        public void PushWin()
+        public void PushWinOrTie()
         {
-            if (!string.IsNullOrEmpty(Wins) && Wins.Length > 0)
-            {
-                Wins += ", " + CurrentPlayer;
-            }
-            else
-            {
-                Wins = CurrentPlayer;
-            }
+            var str = Tie ? "Tie" : CurrentPlayer;
+            History = string.IsNullOrWhiteSpace(History) ? str : History + ", " + str;
         }
 
         public TicTacToe Restart()
         {
             var game = new TicTacToe();
-            game.Wins = Wins;
+            game.History = History;
             return game;
         }
 
 
-        public void CheckForWin()
+        public void CheckForWinOrTie()
         {
-
-            // 9 = outer end
 
             if (CheckPattern(Board, 0, 3, 3, 1, 3)  // Check Rows // Start at 0, increment outer loop by 3 (Check 3 at a time), then iterate inner loop by 1 (Check left to right) inner end would be start + 3, outer end would be board.length
                 || CheckPattern(Board, 0, 1, 3, 3, 3) // Check Columns // Start at 0, increment outer loop by 1 (Check top to bottom) then iterate inner loop by 3 (Checking 3 at a time), inner end would be board.length (9), outer end would be 3.
@@ -76,8 +74,14 @@
                 || CheckPattern(Board, 2, 7, 1, 2, 3)) // Check right to left cross // Start at 2, outerloop only needs to run once.
             {
                 GameOver = true;
-                PushWin();
-            };
+                PushWinOrTie();
+            }
+            else if (!Board.Contains("-"))
+            {
+                GameOver = true;
+                Tie = true;
+                PushWinOrTie();
+            }
         }
 
 

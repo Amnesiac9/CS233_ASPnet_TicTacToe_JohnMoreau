@@ -1,7 +1,16 @@
+/*
+* John Moreau
+* CSS233
+* 12/7/2023
+*/
+
+
 using CS233_ASPnet_TicTacToe_JohnMoreau.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
+
 
 namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
 {
@@ -13,7 +22,7 @@ namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
 
             // Coalescing null to new game
             var game = HttpContext.Session.GetObject<TicTacToe>("game") ??  new TicTacToe();
-
+            game.History = Request.Cookies["TicTacToeHistory"] ?? "";
 
             return View(game);
         }
@@ -34,25 +43,26 @@ namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
             // Why can't the model simply do this step correctly when passing back the board as a List or Array of strings???
             //game.Board = JsonConvert.DeserializeObject<string[]>(game.BoardString) ?? TicTacToe.InitializeBoard();
 
-            if (game.Board[game.LastId] != "-")
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            // Not needed if buttons are disabled
+            //if (game.Board[game.LastId] != "-")
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
             
             game.Board[game.LastId] = game.CurrentPlayer;
-            game.CheckForWin();
+            game.CheckForWinOrTie();
 
-            if (!game.GameOver)
+            //game.GameOver ? Response.Cookies.Append("TicTacToeRecord") : game.SwitchPlayer() ;
+
+            if (game.GameOver)
+            {
+                Response.Cookies.Append("TicTacToeHistory", game.History);
+                
+            } 
+            else
             {
                 game.SwitchPlayer();
-            }
-
-            if(!game.Board.Contains("-"))
-            {
-                game.Tie = true;
-                game.GameOver = true;
-
             }
 
             // Save our game to the session state
@@ -73,6 +83,13 @@ namespace CS233_ASPnet_TicTacToe_JohnMoreau.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        
+        public IActionResult ClearHistory()
+        {
+            Response.Cookies.Delete("TicTacToeHistory");
+            return RedirectToAction("Index", "Home");
+        }
+
 
         public IActionResult Privacy()
         {
