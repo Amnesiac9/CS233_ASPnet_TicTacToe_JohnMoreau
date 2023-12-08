@@ -33,7 +33,7 @@ body {
 
 
 
-/* Not sure why my bootstrap footer wasn't working. Made my own. - John*/
+/* Not sure why my bootstrap footer wasn't sticking to the bottom. Made my own. - John*/
 footer {
     position: absolute;
     bottom: 0;
