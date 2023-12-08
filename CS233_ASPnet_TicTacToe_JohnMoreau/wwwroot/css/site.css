@@ -1,4 +1,8 @@
-
+/*
+* John Moreau
+* CSS233
+* 12/7/2023
+*/
 
 html {
   font-size: 14px;
@@ -46,7 +50,7 @@ footer {
     margin: 1rem auto 1rem auto;
 }
 
-/* Grid button */
+/* Grid button | | | */
 .button-square {
     width: 7rem;
     height: 7rem;
@@ -60,7 +64,7 @@ footer {
     padding-bottom: 2rem;
 }
 
-.button-square:hover {
+.button-square:hover:not(:disabled) {
     border: 2px solid green;
 }
 
@@ -69,12 +73,12 @@ canvas {
     width: 100%;
 }
 
+/* Hidden takes up space on page but doesn't show, this way you don't get stuff moving out of the way when it displays. */
 .hidden {
     opacity: 0;
 }
 
-
-
+/* Custom Flex row to keep width constant so that the board doesn't change shape when resizing.*/
 .custom-flex-row {
     display: flex;
     color: #258cfb;
@@ -85,20 +89,14 @@ canvas {
     margin-right: auto;
 }
 
-.custom-flex-row-og {
-    display: flex;
-    color: #258cfb;
-}
-
-@media (max-width: 768px) {
+@media (max-width: 775px) {
     .custom-flex-row {
         width: 325px;
         min-width: 325px;
     }
 }
 
-/* Media query for even smaller screens */
-/*@media (max-width: 480px) {
+/*@media (max-width: 500px) {
     .custom-flex-row {
         width: 300px;
         min-width: 300px;
